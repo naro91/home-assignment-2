@@ -232,11 +232,12 @@ class PageObject():
         self.driver.find_element_by_css_selector('#submit-image-upload').click()
 
 
+
     def get_editor_text(self):
         wait = WebDriverWait(self.driver, 30, 0.1).until(
-            EC.text_to_be_present_in_element((By.CSS_SELECTOR, '.topic-content > img:nth-child(1)'))
+            EC.text_to_be_present_in_element((By.CSS_SELECTOR, '.system-message-notice > li:nth-child(1)'), u'Топик успешно создан')
         )
-        return wait.get_attribute('src')
+        return self.driver.find_element_by_css_selector('.topic-content > img:nth-child(1)').get_attribute('src')
         # return self.driver.find_element_by_css_selector('.topic-content > img:nth-child(1)').get_attribute('src')
 
     def click_button_and_set_text(self, css_selector):
