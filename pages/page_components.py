@@ -73,9 +73,9 @@ class PageObject():
         ActionChains(self.driver).click(field).send_keys(text).perform()
 
     def create_topic(self):
-        self.driver.find_element_by_css_selector('button.button:nth-child(14)').submit()
-        # WebDriverWait(self.driver, 10).until(
-        #     EC.element_to_be_clickable((By.XPATH, self.CREATE_BUTTON_XPATH))).submit()
+        # self.driver.find_element_by_css_selector('button.button:nth-child(14)').submit()
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, self.CREATE_BUTTON_XPATH))).submit()
 
 
     def get_content(self):
@@ -233,4 +233,23 @@ class PageObject():
 
 
     def get_editor_text(self):
-        return self.driver.find_element_by_css_selector('.topic-content > img:nth-child(1)').get_attribute('src')
+        wait = WebDriverWait(self.driver, 30, 0.1).until(
+            EC.text_to_be_present_in_element((By.CSS_SELECTOR, '.topic-content > img:nth-child(1)'))
+        )
+        return wait.get_attribute('src')
+        # return self.driver.find_element_by_css_selector('.topic-content > img:nth-child(1)').get_attribute('src')
+
+    def click_button_and_set_text(self, css_selector):
+        self.driver.find_element_by_css_selector(css_selector).click()
+        self.driver.find_element_by_css_selector(self.MAIN_TEXT).send_keys('This is main text')
+
+    def click_button(self, css_selector):
+        self.driver.find_element_by_css_selector(css_selector).click()
+
+    def set_text(self, css_selector, text):
+        self.driver.find_element_by_css_selector(css_selector).send_keys(text)
+
+    def come_back_and_set_text(self, number, text):
+        for i in range(number):
+            self.driver.find_element_by_css_selector(self.MAIN_TEXT).send_keys(Keys.ARROW_LEFT)
+        self.driver.find_element_by_css_selector(self.MAIN_TEXT).send_keys(text)
