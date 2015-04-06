@@ -171,7 +171,7 @@ class PostCreateTestCase(unittest.TestCase):
         href = self.topic_page_object.get_link()
         self.assertIn('/profile/m.smirnov/', href)
 
-    # в режиме дебага работает а при нормальном запуске нет
+    # в режиме дебага (пошаговом проходе) работает а при нормальном запуске нет
     # def test_upload_image(self):
     #     self.topic_page_object.select_blog_by_id(34)
     #     self.topic_page_object.load_image(self.IMG_PATH)
