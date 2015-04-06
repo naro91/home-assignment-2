@@ -98,10 +98,9 @@ class PageObject():
         wait = WebDriverWait(self.driver, 10)
         elem = wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="id_question"]')))
         elem.send_keys(question)
-        i = 0
-        for temp in answers:
+        for i,temp in enumerate(answers):
             self.driver.find_element_by_id('id_form-{}-answer'.format(i)).send_keys(temp)
-            i = i+1
+
 
     def find_questionnaire(self):
         ans1 = self.driver.find_element_by_xpath('.//ul[@class="poll-vote"]/li[1]/label').text
